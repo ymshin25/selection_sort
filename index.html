@@ -1,0 +1,270 @@
+
+<style>
+h2.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+.code-block{background:#1e1e2e;border-radius:var(--border-radius-lg);padding:1.1rem 1.4rem;font-family:var(--font-mono);font-size:13px;line-height:2;overflow-x:auto}
+.cl{display:flex;gap:10px;border-radius:4px;padding:1px 5px;margin:0 -5px;transition:background .25s}
+.cl.hl{background:rgba(20,184,166,0.15);border-left:2px solid #14b8a6;padding-left:3px}
+.ln{color:#4a4a6a;font-size:11px;min-width:20px;user-select:none;flex-shrink:0;padding-top:3px}
+.kw{color:#c792ea}.fn{color:#82aaff}.st{color:#c3e88d}.cm{color:#546e7a;font-style:italic}.num{color:#f78c6c}.var{color:#eeffff}.op{color:#89ddff}.punc{color:#89ddff}
+.arr-row{display:flex;gap:6px;align-items:flex-end;justify-content:center;padding:.75rem 0 .3rem;min-height:120px}
+.cw{display:flex;flex-direction:column;align-items:center;gap:4px}
+.bar{width:52px;border-radius:var(--border-radius-md) var(--border-radius-md) 0 0;display:flex;align-items:flex-start;justify-content:center;padding-top:5px;transition:all .35s cubic-bezier(.4,0,.2,1);font-size:14px;font-weight:500;position:relative}
+.bar.def{background:#B5D4F4;color:#0C447C}
+.bar.scan{background:#fef3c7;color:#92400e;transform:translateY(-8px)}
+.bar.minv{background:#fee2e2;color:#991b1b;transform:translateY(-14px)}
+.bar.anchor{background:#e0f2fe;color:#0369a1;transform:translateY(-4px)}
+.bar.swap{background:#f3e8ff;color:#6b21a8;transform:translateY(-10px)}
+.bar.done{background:#dcfce7;color:#166534}
+.idx{font-size:10px;color:var(--color-text-tertiary)}
+.min-lbl{font-size:10px;font-weight:500;color:#991b1b;min-height:14px;text-align:center;width:52px}
+.anchor-lbl{font-size:10px;font-weight:500;color:#0369a1;min-height:14px;text-align:center;width:52px}
+.card{background:var(--color-background-secondary);border-radius:var(--border-radius-lg);padding:.85rem 1rem}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:12px;padding:2px 9px;border-radius:20px;font-weight:500}
+.badge.teal{background:#E1F5EE;color:#085041}
+.badge.red{background:#fee2e2;color:#991b1b}
+.badge.purple{background:#f3e8ff;color:#6b21a8}
+.badge.green{background:#dcfce7;color:#166534}
+.badge.gray{background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.badge.blue{background:#e0f2fe;color:#0369a1}
+.step-box{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.7rem 1rem;font-size:13px;line-height:1.75;min-height:72px;color:var(--color-text-secondary)}
+.step-box strong{color:var(--color-text-primary)}
+.prog-bar{height:4px;background:var(--color-border-tertiary);border-radius:2px;overflow:hidden;margin:.6rem 0 .9rem}
+.prog-fill{height:100%;background:#0D9488;border-radius:2px;transition:width .4s}
+.stat-n{font-size:20px;font-weight:500;color:var(--color-text-primary)}
+.stat-l{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
+.ctrl{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:.85rem}
+.spd-row{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--color-text-secondary)}
+</style>
+
+<h2 class="sr-only">선택 정렬 파이썬 코드 단계별 시각화 — [5,3,8,1,4] 배열을 선택 정렬로 정렬하는 과정을 한 단계씩 확인합니다</h2>
+
+<div style="padding:.75rem 0 0">
+
+<div class="code-block">
+  <div class="cl" id="L1"><span class="ln">1</span><span><span class="cm"># 선택 정렬 (Selection Sort) — 배열: [5, 3, 8, 1, 4]</span></span></div>
+  <div class="cl" id="L2"><span class="ln">2</span><span><span class="var">arr</span> <span class="op">=</span> <span class="punc">[</span><span class="num">5</span><span class="punc">,</span> <span class="num">3</span><span class="punc">,</span> <span class="num">8</span><span class="punc">,</span> <span class="num">1</span><span class="punc">,</span> <span class="num">4</span><span class="punc">]</span></span></div>
+  <div class="cl" id="L3"><span class="ln">3</span><span><span class="var">n</span> <span class="op">=</span> <span class="fn">len</span><span class="punc">(</span><span class="var">arr</span><span class="punc">)</span>  <span class="cm"># n = 5</span></span></div>
+  <div class="cl" id="L4"><span class="ln">4</span><span></span></div>
+  <div class="cl" id="L5"><span class="ln">5</span><span><span class="kw">for</span> <span class="var">i</span> <span class="kw">in</span> <span class="fn">range</span><span class="punc">(</span><span class="var">n</span> <span class="op">-</span> <span class="num">1</span><span class="punc">):</span>  <span class="cm"># i = 0,1,2,3  (패스 횟수)</span></span></div>
+  <div class="cl" id="L6"><span class="ln">6</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="var">min_idx</span> <span class="op">=</span> <span class="var">i</span>  <span class="cm"># 최솟값 위치를 i로 초기화</span></span></div>
+  <div class="cl" id="L7"><span class="ln">7</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">for</span> <span class="var">j</span> <span class="kw">in</span> <span class="fn">range</span><span class="punc">(</span><span class="var">i</span> <span class="op">+</span> <span class="num">1</span><span class="punc">,</span> <span class="var">n</span><span class="punc">):</span>  <span class="cm"># i+1부터 끝까지 탐색</span></span></div>
+  <div class="cl" id="L8"><span class="ln">8</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">if</span> <span class="var">arr</span><span class="punc">[</span><span class="var">j</span><span class="punc">]</span> <span class="op">&lt;</span> <span class="var">arr</span><span class="punc">[</span><span class="var">min_idx</span><span class="punc">]:</span>  <span class="cm"># 더 작은 값 발견?</span></span></div>
+  <div class="cl" id="L9"><span class="ln">9</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="var">min_idx</span> <span class="op">=</span> <span class="var">j</span>  <span class="cm"># 최솟값 위치 갱신</span></span></div>
+  <div class="cl" id="L10"><span class="ln">10</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="cm"># 탐색 완료! 최솟값을 맨 앞과 교환</span></span></div>
+  <div class="cl" id="L11"><span class="ln">11</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="var">arr</span><span class="punc">[</span><span class="var">i</span><span class="punc">],</span> <span class="var">arr</span><span class="punc">[</span><span class="var">min_idx</span><span class="punc">]</span> <span class="op">=</span> <span class="var">arr</span><span class="punc">[</span><span class="var">min_idx</span><span class="punc">],</span> <span class="var">arr</span><span class="punc">[</span><span class="var">i</span><span class="punc">]</span></span></div>
+  <div class="cl" id="L12"><span class="ln">12</span><span></span></div>
+  <div class="cl" id="L13"><span class="ln">13</span><span><span class="fn">print</span><span class="punc">(</span><span class="st">"정렬 결과:"</span><span class="punc">,</span> <span class="var">arr</span><span class="punc">)</span></span></div>
+  <div class="cl" id="L14"><span class="ln">14</span><span><span class="cm"># 출력: 정렬 결과: [1, 3, 4, 5, 8]</span></span></div>
+</div>
+
+<div style="margin-top:1.25rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+
+<div class="card">
+  <div style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:4px">배열 상태</div>
+  <div style="display:flex;gap:6px;justify-content:center;min-height:16px" id="top-labels"></div>
+  <div class="arr-row" id="arr-viz"></div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:.5rem" id="step-badge"></div>
+  <div style="font-size:11px;color:var(--color-text-tertiary);margin-top:.35rem;text-align:center" id="vars-line"></div>
+</div>
+
+<div class="card">
+  <div style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:.5rem">실행 중인 줄 설명</div>
+  <div class="step-box" id="step-desc">▶ 시작 버튼을 눌러보세요!</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:.75rem">
+    <div style="text-align:center"><div class="stat-n" id="s-pass">-</div><div class="stat-l">패스 (i)</div></div>
+    <div style="text-align:center"><div class="stat-n" id="s-j">-</div><div class="stat-l">탐색 위치 (j)</div></div>
+    <div style="text-align:center"><div class="stat-n" id="s-cmp">0</div><div class="stat-l">총 비교 횟수</div></div>
+  </div>
+</div>
+
+</div>
+
+<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:.85rem 0 .4rem;font-size:12px;color:var(--color-text-secondary)">
+  <span style="display:inline-flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:3px;background:#B5D4F4;display:inline-block"></span>기본</span>
+  <span style="display:inline-flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:3px;background:#e0f2fe;border:1.5px solid #0369a1;display:inline-block"></span>기준 위치 (i)</span>
+  <span style="display:inline-flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:3px;background:#fef3c7;border:1.5px solid #f59e0b;display:inline-block"></span>탐색 중 (j)</span>
+  <span style="display:inline-flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:3px;background:#fee2e2;border:1.5px solid #ef4444;display:inline-block"></span>현재 최솟값</span>
+  <span style="display:inline-flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:3px;background:#f3e8ff;border:1.5px solid #a855f7;display:inline-block"></span>교환 발생</span>
+  <span style="display:inline-flex;align-items:center;gap:4px"><span style="width:12px;height:12px;border-radius:3px;background:#dcfce7;border:1.5px solid #22c55e;display:inline-block"></span>정렬 완료</span>
+</div>
+
+<div class="prog-bar"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+
+<div class="ctrl">
+  <button id="btn-step" onclick="stepFwd()" style="font-size:13px">다음 단계 <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+  <button id="btn-auto" onclick="toggleAuto()" style="font-size:13px"><i class="ti ti-player-play" id="play-icon" aria-hidden="true"></i> 자동 실행</button>
+  <button onclick="resetSim()" style="font-size:13px"><i class="ti ti-refresh" aria-hidden="true"></i> 처음부터</button>
+  <div class="spd-row">
+    <span>빠르게</span>
+    <input type="range" min="1" max="5" value="3" id="spd" step="1" style="width:75px" oninput="setSpd(this.value)">
+    <span>천천히</span>
+  </div>
+</div>
+
+</div>
+
+<script>
+const INIT=[5,3,8,1,4], N=INIT.length;
+const MAX_H=100, MAX_V=Math.max(...INIT);
+
+function buildEvents(init){
+  const a=[...init], evts=[];
+  evts.push({type:'init',arr:[...a]});
+  for(let i=0;i<N-1;i++){
+    let minIdx=i;
+    evts.push({type:'pass_start',i,arr:[...a],minIdx});
+    for(let j=i+1;j<N;j++){
+      const cmpBefore=[...a];
+      const isNew=a[j]<a[minIdx];
+      if(isNew) minIdx=j;
+      evts.push({type:'compare',i,j,arr:[...a],minIdx,isNew,cmpBefore});
+    }
+    evts.push({type:'pre_swap',i,arr:[...a],minIdx});
+    const before=[...a];
+    const didSwap=minIdx!==i;
+    if(didSwap)[a[i],a[minIdx]]=[a[minIdx],a[i]];
+    evts.push({type:'swap',i,arr:[...a],realMinIdx:minIdx,didSwap,before,sortedFrom:i+1});
+  }
+  evts.push({type:'done',arr:[...a]});
+  return evts;
+}
+
+const EVTS=buildEvents(INIT);
+let cur=0, cmpCount=0, sortedFrom=N, autoTimer=null, spdMs=750;
+let curI=undefined, curJ=undefined, curMin=undefined;
+
+function hl(ids){
+  document.querySelectorAll('.cl').forEach(c=>c.classList.remove('hl'));
+  (Array.isArray(ids)?ids:[ids]).forEach(id=>{const el=document.getElementById(id);if(el)el.classList.add('hl');});
+}
+
+function renderArr(arr, anchorIdx, scanIdx, minIdx, swapPair, sf){
+  const box=document.getElementById('arr-viz');
+  const topLbls=document.getElementById('top-labels');
+  box.innerHTML=''; topLbls.innerHTML='';
+  arr.forEach((v,i)=>{
+    const h=Math.max(Math.round((v/MAX_V)*MAX_H),8);
+    let cls='def';
+    if(sf!==undefined && i<sf) cls='done';
+    if(swapPair && (i===swapPair[0]||i===swapPair[1])) cls='swap';
+    else if(minIdx!==undefined && i===minIdx && (sf===undefined||i>=sf)) cls='minv';
+    else if(anchorIdx!==undefined && i===anchorIdx && (sf===undefined||i>=sf)) cls='anchor';
+    else if(scanIdx!==undefined && i===scanIdx && (sf===undefined||i>=sf)) cls='scan';
+
+    const cw=document.createElement('div'); cw.className='cw';
+    cw.innerHTML=`<div class="bar ${cls}" style="height:${h}px">${v}</div><div class="idx">[${i}]</div>`;
+    box.appendChild(cw);
+
+    const lbl=document.createElement('div'); lbl.style.width='52px'; lbl.style.textAlign='center'; lbl.style.fontSize='10px'; lbl.style.fontWeight='500'; lbl.style.minHeight='14px';
+    if(i===anchorIdx && cls!=='done') { lbl.style.color='#0369a1'; lbl.textContent='i='+i; }
+    else if(i===minIdx && minIdx!==undefined && cls!=='done') { lbl.style.color='#991b1b'; lbl.textContent='min'; }
+    else if(i===scanIdx && scanIdx!==undefined && cls!=='done') { lbl.style.color='#92400e'; lbl.textContent='j='+i; }
+    topLbls.appendChild(lbl);
+  });
+}
+
+function setDesc(html){ document.getElementById('step-desc').innerHTML=html; }
+function setBadge(html){ document.getElementById('step-badge').innerHTML=html; }
+function setVars(t){ document.getElementById('vars-line').textContent=t; }
+function setStat(i,j,c){
+  document.getElementById('s-pass').textContent=i===undefined?'-':i+1;
+  document.getElementById('s-j').textContent=j===undefined?'-':j;
+  document.getElementById('s-cmp').textContent=c;
+}
+function setProg(pct){ document.getElementById('prog').style.width=pct+'%'; }
+
+function stepFwd(){
+  if(cur>=EVTS.length) return;
+  const e=EVTS[cur++];
+  setProg(Math.round(cur/EVTS.length*100));
+
+  if(e.type==='init'){
+    renderArr(e.arr,undefined,undefined,undefined,null,N);
+    hl(['L2','L3']);
+    setDesc(`<strong>초기 배열</strong><br>arr = [5, 3, 8, 1, 4]<br>n = len(arr) → <strong>n = 5</strong><br>바깥 반복문 range(n-1) = range(4) → i = 0, 1, 2, 3`);
+    setBadge(''); setVars(''); setStat(undefined,undefined,0);
+    curI=undefined; curJ=undefined; curMin=undefined;
+
+  }else if(e.type==='pass_start'){
+    sortedFrom=N; curI=e.i; curMin=e.i; curJ=undefined;
+    renderArr(e.arr, e.i, undefined, undefined, null, e.i);
+    hl(['L5','L6']);
+    setDesc(`<span style="color:#0F766E;font-weight:500">${e.i+1}패스 시작</span> &nbsp;(i = ${e.i})<br><code>min_idx = i = ${e.i}</code> — arr[${e.i}]=${e.arr[e.i]}을 일단 최솟값으로 가정<br>탐색 범위: arr[${e.i+1}] ~ arr[${N-1}]`);
+    setBadge(`<span class="badge teal"><i class="ti ti-search" style="font-size:12px" aria-hidden="true"></i> ${e.i+1}패스 탐색 시작</span>`);
+    setVars(`i = ${e.i}  |  min_idx = ${e.i}  |  arr[min_idx] = ${e.arr[e.i]}`);
+    setStat(e.i,undefined,cmpCount);
+
+  }else if(e.type==='compare'){
+    cmpCount++; curJ=e.j; curMin=e.minIdx;
+    renderArr(e.arr, e.i, e.j, e.minIdx, null, e.i);
+    hl(['L7','L8',...(e.isNew?['L9']:[])]);
+    const jv=e.cmpBefore[e.j], prevMinV=e.cmpBefore[e.isNew?e.i:e.minIdx];
+    const oldMin=e.isNew?e.arr[e.i]:e.minIdx;
+    setDesc(`<strong>비교</strong> &nbsp;j = ${e.j}<br><code>arr[${e.j}] = ${jv}</code> vs <code>arr[${e.isNew&&e.j===e.minIdx?e.i:e.minIdx}] = ${e.isNew?e.cmpBefore[e.i]:e.cmpBefore[e.minIdx]}</code><br>${jv} ${e.isNew?'<':'>'} ${e.isNew?e.cmpBefore[e.i]:e.cmpBefore[e.minIdx]} → ${e.isNew?`<strong style="color:#991b1b">더 작음! min_idx = ${e.j}</strong>`:'기존 최솟값 유지'}`);
+    setBadge(e.isNew
+      ? `<span class="badge red"><i class="ti ti-trending-down" style="font-size:12px" aria-hidden="true"></i> 최솟값 갱신! arr[${e.j}]=${jv}</span>`
+      : `<span class="badge gray">유지 — arr[${e.minIdx}]=${e.arr[e.minIdx]} 그대로</span>`);
+    setVars(`i = ${e.i}  |  j = ${e.j}  |  min_idx = ${e.minIdx}  |  arr[min_idx] = ${e.arr[e.minIdx]}`);
+    setStat(e.i, e.j, cmpCount);
+
+  }else if(e.type==='pre_swap'){
+    curJ=undefined;
+    renderArr(e.arr, e.i, undefined, e.minIdx, null, e.i);
+    hl(['L10','L11']);
+    const didSwap=e.minIdx!==e.i;
+    setDesc(`<strong>탐색 완료!</strong><br>최솟값: arr[${e.minIdx}] = ${e.arr[e.minIdx]}<br>${didSwap
+      ? `arr[${e.i}]=${e.arr[e.i]} ↔ arr[${e.minIdx}]=${e.arr[e.minIdx]} 교환 준비`
+      : `arr[${e.i}]이 이미 최솟값 → 교환 불필요 (제자리)`}`);
+    setBadge(didSwap
+      ? `<span class="badge purple"><i class="ti ti-replace" style="font-size:12px" aria-hidden="true"></i> arr[${e.i}] ↔ arr[${e.minIdx}] 교환!</span>`
+      : `<span class="badge teal"><i class="ti ti-check" style="font-size:12px" aria-hidden="true"></i> 이미 제자리 — 교환 없음</span>`);
+    setVars(`min_idx = ${e.minIdx}  |  교환 ${didSwap?'실행':'생략'}`);
+    setStat(e.i,undefined,cmpCount);
+
+  }else if(e.type==='swap'){
+    sortedFrom=e.sortedFrom; curI=undefined; curMin=undefined;
+    renderArr(e.arr, undefined, undefined, undefined, e.didSwap?[e.i,e.realMinIdx]:null, e.sortedFrom);
+    hl('L11');
+    setDesc(e.didSwap
+      ? `<strong style="color:#6b21a8">교환 완료!</strong><br><code>arr[${e.i}], arr[${e.realMinIdx}] = arr[${e.realMinIdx}], arr[${e.i}]</code><br>${e.before[e.realMinIdx]} ↔ ${e.before[e.i]} → arr[${e.i}] = ${e.arr[e.i]} 확정`
+      : `<strong style="color:#0F766E">제자리 확정!</strong><br>arr[${e.i}] = ${e.arr[e.i]}이 탐색 범위에서 가장 작아요.<br>교환 없이 바로 정렬 확정.`);
+    setBadge(`<span class="badge green"><i class="ti ti-check" style="font-size:12px" aria-hidden="true"></i> ${e.i+1}패스 완료 — arr[${e.i}]=${e.arr[e.i]} 확정</span>`);
+    setVars('');
+    setStat(e.i,undefined,cmpCount);
+
+  }else if(e.type==='done'){
+    sortedFrom=0;
+    renderArr(e.arr, undefined, undefined, undefined, null, 0);
+    hl(['L13','L14']);
+    setDesc(`<strong style="color:#166534">정렬 완료!</strong><br><code>print("정렬 결과:", arr)</code><br>→ <strong>정렬 결과: [1, 3, 4, 5, 8]</strong><br>총 비교 ${cmpCount}회 (n(n-1)/2 = 10회), 교환 최대 n-1 = 4회`);
+    setBadge(`<span class="badge green"><i class="ti ti-confetti" style="font-size:12px" aria-hidden="true"></i> 완료! [1, 3, 4, 5, 8]</span>`);
+    setVars('');
+    setStat(undefined,undefined,cmpCount);
+    document.getElementById('btn-step').disabled=true;
+    document.getElementById('btn-auto').disabled=true;
+    if(autoTimer){clearInterval(autoTimer);autoTimer=null;document.getElementById('play-icon').className='ti ti-player-play';}
+  }
+}
+
+function toggleAuto(){
+  if(autoTimer){clearInterval(autoTimer);autoTimer=null;document.getElementById('play-icon').className='ti ti-player-play';}
+  else{document.getElementById('play-icon').className='ti ti-player-pause';
+    autoTimer=setInterval(()=>{if(cur>=EVTS.length){clearInterval(autoTimer);autoTimer=null;document.getElementById('play-icon').className='ti ti-player-play';return;}stepFwd();},spdMs);}
+}
+
+function setSpd(v){const m={1:150,2:350,3:750,4:1200,5:1800};spdMs=m[v]||750;
+  if(autoTimer){clearInterval(autoTimer);autoTimer=setInterval(()=>{if(cur>=EVTS.length){clearInterval(autoTimer);autoTimer=null;return;}stepFwd();},spdMs);}}
+
+function resetSim(){
+  if(autoTimer){clearInterval(autoTimer);autoTimer=null;document.getElementById('play-icon').className='ti ti-player-play';}
+  cur=0;cmpCount=0;sortedFrom=N;curI=curJ=curMin=undefined;
+  renderArr(INIT,undefined,undefined,undefined,null,N);
+  hl([]);
+  setDesc('▶ 시작 버튼을 눌러보세요!');setBadge('');setVars('');
+  setStat(undefined,undefined,0);setProg(0);
+  document.getElementById('btn-step').disabled=false;
+  document.getElementById('btn-auto').disabled=false;
+}
+
+resetSim();
+</script>

@@ -1,0 +1,260 @@
+
+<style>
+h2.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+.sec{margin-bottom:2rem}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem}
+.badge{display:inline-flex;align-items:center;gap:4px;font-size:12px;padding:3px 10px;border-radius:var(--border-radius-md);font-weight:500}
+.badge.red{background:#FCEBEB;color:#791F1F}
+.badge.teal{background:#E1F5EE;color:#085041}
+.badge.amber{background:#FAEEDA;color:#633806}
+.badge.blue{background:#E6F1FB;color:#0C447C}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:.5rem}
+.tbl th{background:var(--color-background-secondary);font-weight:500;font-size:12px;color:var(--color-text-secondary);padding:.5rem .75rem;text-align:left;border-bottom:0.5px solid var(--color-border-tertiary)}
+.tbl td{padding:.5rem .75rem;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td.bad{color:#791F1F}
+.tbl td.good{color:#085041;font-weight:500}
+.arr-wrap{display:flex;gap:4px;align-items:flex-end;flex-wrap:nowrap}
+.bar-s{display:flex;flex-direction:column;align-items:center;gap:3px}
+.bar-b{border-radius:3px 3px 0 0;width:32px;transition:all .35s;display:flex;align-items:flex-start;justify-content:center;padding-top:2px;font-size:11px;font-weight:500}
+.idx-l{font-size:9px;color:var(--color-text-tertiary)}
+.swap-mark{font-size:9px;font-weight:500;min-height:13px;text-align:center;width:32px}
+.step-nav{display:flex;gap:6px;align-items:center;margin-top:.75rem}
+.step-info{font-size:12px;color:var(--color-text-secondary);margin-top:.5rem;min-height:36px;line-height:1.6}
+.highlight-box{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.75rem 1rem;font-size:13px;line-height:1.7;border-left:3px solid transparent}
+.highlight-box.teal{border-color:#0F6E56}
+.highlight-box.red{border-color:#A32D2D}
+</style>
+
+<h2 class="sr-only">버블 정렬과 선택 정렬 비교 — 교환 횟수, 동작 원리, 장단점을 시각적으로 비교합니다</h2>
+
+<div style="padding:1rem 0 0">
+
+<div class="sec">
+  <div style="font-size:13px;font-weight:500;color:var(--color-text-secondary);margin-bottom:.75rem;letter-spacing:.04em;text-transform:uppercase">핵심 차이 한눈에 보기</div>
+  <div class="row2">
+    <div class="card highlight-box red" style="padding:.85rem 1rem">
+      <div style="font-size:14px;font-weight:500;margin-bottom:.4rem;color:var(--color-text-primary)"><i class="ti ti-bubble" style="font-size:16px;vertical-align:-2px;margin-right:5px" aria-hidden="true"></i>버블 정렬의 문제점</div>
+      <div style="font-size:13px;color:var(--color-text-secondary);line-height:1.7">비교할 때마다 조건이 맞으면 <strong style="color:#791F1F">즉시 교환</strong>한다.<br>→ 같은 배열을 훨씬 더 많이 교환할 수 있다.</div>
+    </div>
+    <div class="card highlight-box teal" style="padding:.85rem 1rem">
+      <div style="font-size:14px;font-weight:500;margin-bottom:.4rem;color:var(--color-text-primary)"><i class="ti ti-sort-ascending" style="font-size:16px;vertical-align:-2px;margin-right:5px" aria-hidden="true"></i>선택 정렬의 개선점</div>
+      <div style="font-size:13px;color:var(--color-text-secondary);line-height:1.7">먼저 전체를 <strong style="color:#085041">탐색</strong>하고, 패스 끝에서 <strong style="color:#085041">딱 1번</strong>만 교환한다.<br>→ 교환 횟수가 최대 n-1회로 고정된다.</div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div style="font-size:13px;font-weight:500;color:var(--color-text-secondary);margin-bottom:.75rem;letter-spacing:.04em;text-transform:uppercase">같은 배열로 단계별 비교 — [5, 3, 8, 1, 4]</div>
+  <div class="row2">
+
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem">
+        <span style="font-size:13px;font-weight:500">버블 정렬</span>
+        <span class="badge red" id="b-swap-cnt">교환 0회</span>
+      </div>
+      <div class="arr-wrap" id="b-arr"></div>
+      <div class="step-info" id="b-info">시작 버튼을 눌러보세요</div>
+      <div style="font-size:11px;color:var(--color-text-tertiary);margin-top:.25rem" id="b-sub"></div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem">
+        <span style="font-size:13px;font-weight:500">선택 정렬</span>
+        <span class="badge teal" id="s-swap-cnt">교환 0회</span>
+      </div>
+      <div class="arr-wrap" id="s-arr"></div>
+      <div class="step-info" id="s-info">시작 버튼을 눌러보세요</div>
+      <div style="font-size:11px;color:var(--color-text-tertiary);margin-top:.25rem" id="s-sub"></div>
+    </div>
+
+  </div>
+
+  <div class="step-nav" style="margin-top:.85rem">
+    <button id="btn-play" onclick="togglePlay()" style="font-size:13px"><i class="ti ti-player-play" id="play-icon" aria-hidden="true"></i> 자동 실행</button>
+    <button onclick="stepBoth()" id="btn-step" style="font-size:13px">다음 단계 <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+    <button onclick="resetBoth()" style="font-size:13px"><i class="ti ti-refresh" aria-hidden="true"></i> 처음부터</button>
+    <span id="step-counter" style="font-size:12px;color:var(--color-text-tertiary);margin-left:4px"></span>
+  </div>
+</div>
+
+<div class="sec">
+  <div style="font-size:13px;font-weight:500;color:var(--color-text-secondary);margin-bottom:.75rem;letter-spacing:.04em;text-transform:uppercase">성능 비교표</div>
+  <div class="card" style="padding:.75rem 0">
+    <table class="tbl">
+      <thead><tr><th>항목</th><th>버블 정렬</th><th>선택 정렬</th></tr></thead>
+      <tbody>
+        <tr><td>비교 횟수</td><td>n(n-1)/2 = <strong>10회</strong></td><td>n(n-1)/2 = <strong>10회</strong> (동일)</td></tr>
+        <tr><td>교환 횟수</td><td class="bad">최대 n(n-1)/2 = <strong>10회</strong></td><td class="good">최대 n-1 = <strong>4회</strong></td></tr>
+        <tr><td>시간 복잡도</td><td>O(n²)</td><td>O(n²) (동일)</td></tr>
+        <tr><td>교환 비용</td><td class="bad">매우 높음</td><td class="good">낮음</td></tr>
+        <tr><td>안정 정렬</td><td class="good">O (안정)</td><td class="bad">X (불안정)</td></tr>
+        <tr><td>적합한 상황</td><td>데이터가 거의 정렬된 경우</td><td class="good">교환 비용이 클 때 유리</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="sec">
+  <div style="font-size:13px;font-weight:500;color:var(--color-text-secondary);margin-bottom:.75rem;letter-spacing:.04em;text-transform:uppercase">교환 횟수 비교 차트</div>
+  <div style="position:relative;width:100%;height:220px">
+    <canvas id="swapChart" role="img" aria-label="버블 정렬과 선택 정렬의 교환 횟수 비교 막대 차트. 버블 정렬 6회, 선택 정렬 4회.">버블 정렬: 6회 교환, 선택 정렬: 4회 교환 (배열 [5,3,8,1,4] 기준)</canvas>
+  </div>
+  <div style="display:flex;gap:16px;margin-top:.5rem;font-size:12px;color:var(--color-text-secondary)">
+    <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:#E24B4A"></span>버블 정렬</span>
+    <span style="display:flex;align-items:center;gap:4px"><span style="width:10px;height:10px;border-radius:2px;background:#1D9E75"></span>선택 정렬</span>
+  </div>
+</div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const INIT=[5,3,8,1,4];
+const MAX_H=72, MAX_V=Math.max(...INIT);
+
+function barColor(type){
+  const m={def:'#B5D4F4',cmp:'#fef3c7',swap:'#f3e8ff',min:'#fee2e2',done:'#dcfce7',anchor:'#e0f2fe'};
+  return m[type]||'#B5D4F4';
+}
+function barText(type){
+  const m={cmp:'#92400e',swap:'#6b21a8',min:'#991b1b',done:'#166534',anchor:'#0369a1'};
+  return m[type]||'#0C447C';
+}
+
+function renderBars(containerId, arr, colors, swapMarks){
+  const box=document.getElementById(containerId);
+  box.innerHTML='';
+  arr.forEach((v,i)=>{
+    const h=Math.max(Math.round((v/MAX_V)*MAX_H),6);
+    const c=colors[i]||'def';
+    const fc=barColor(c), tc=barText(c);
+    const lift=c==='cmp'?-6:c==='swap'?-10:c==='min'?-12:c==='anchor'?-4:0;
+    const div=document.createElement('div');
+    div.className='bar-s';
+    div.innerHTML=
+      `<div class="swap-mark" style="color:#A32D2D">${swapMarks&&swapMarks[i]?'↕':'　'}</div>`+
+      `<div class="bar-b" style="height:${h}px;background:${fc};color:${tc};transform:translateY(${lift}px)">${v}</div>`+
+      `<div class="idx-l">[${i}]</div>`;
+    box.appendChild(div);
+  });
+}
+
+function buildBubbleEvents(init){
+  const a=[...init],evts=[];
+  evts.push({arr:[...a],colors:{},info:'초기 배열 [5, 3, 8, 1, 4]',swaps:0,sub:''});
+  let swaps=0;
+  for(let i=0;i<a.length-1;i++){
+    for(let j=0;j<a.length-i-1;j++){
+      const before=[...a];
+      const sw=a[j]>a[j+1];
+      const colors={};
+      for(let k=0;k<a.length;k++) if(k>=a.length-i) colors[k]='done';
+      colors[j]='cmp'; colors[j+1]='cmp';
+      evts.push({arr:[...a],colors:{...colors},info:`비교: arr[${j}]=${a[j]} vs arr[${j+1}]=${a[j+1]}`,swaps,sub:`${a[j]} > ${a[j+1]}? → ${sw?'교환!':'유지'}`});
+      if(sw){[a[j],a[j+1]]=[a[j+1],a[j]];swaps++;
+        const sc={...colors};sc[j]='swap';sc[j+1]='swap';
+        evts.push({arr:[...a],colors:sc,marks:{[j]:true,[j+1]:true},info:`교환 완료: ${before[j]} ↔ ${before[j+1]}`,swaps,sub:''});
+      }
+    }
+    const done={};for(let k=a.length-i-1;k<a.length;k++) done[k]='done';
+    evts.push({arr:[...a],colors:done,info:`${i+1}패스 완료 → arr[${a.length-i-1}]=${a[a.length-i-1]} 확정`,swaps,sub:''});
+  }
+  const allDone={};for(let k=0;k<a.length;k++) allDone[k]='done';
+  evts.push({arr:[...a],colors:allDone,info:'정렬 완료! [1, 3, 4, 5, 8]',swaps,sub:`총 교환 횟수: ${swaps}회`});
+  return evts;
+}
+
+function buildSelectionEvents(init){
+  const a=[...init],evts=[];
+  evts.push({arr:[...a],colors:{},info:'초기 배열 [5, 3, 8, 1, 4]',swaps:0,sub:''});
+  let swaps=0;
+  for(let i=0;i<a.length-1;i++){
+    let minIdx=i;
+    const bc={};for(let k=0;k<i;k++) bc[k]='done'; bc[i]='anchor';
+    evts.push({arr:[...a],colors:{...bc},info:`${i+1}패스: min_idx=${i} (arr[${i}]=${a[i]}) 로 초기화`,swaps,sub:''});
+    for(let j=i+1;j<a.length;j++){
+      const isNew=a[j]<a[minIdx];
+      if(isNew) minIdx=j;
+      const cc={};for(let k=0;k<i;k++) cc[k]='done'; cc[i]='anchor'; cc[minIdx]='min'; cc[j]='cmp';
+      evts.push({arr:[...a],colors:{...cc},info:`탐색 j=${j}: arr[${j}]=${a[j]} vs 최솟값 arr[${isNew?i:minIdx}]=${isNew?a[i]:a[minIdx]}`,swaps,sub:isNew?`갱신! min_idx=${j}`:'유지'});
+    }
+    const before=[...a];
+    const didSwap=minIdx!==i;
+    const sc={};for(let k=0;k<i;k++) sc[k]='done';
+    if(didSwap){[a[i],a[minIdx]]=[a[minIdx],a[i]];swaps++;sc[i]='swap';sc[minIdx]='swap';}
+    else {sc[i]='done';}
+    const marks=didSwap?{[i]:true,[minIdx]:true}:{};
+    evts.push({arr:[...a],colors:{...sc},marks,info:didSwap?`교환: ${before[minIdx]}↔${before[i]} → arr[${i}]=${a[i]} 확정`:`arr[${i}]=${a[i]} 이미 최솟값 → 교환 없이 확정`,swaps,sub:didSwap?`패스당 1번만 교환!`:''});
+  }
+  const allDone={};for(let k=0;k<a.length;k++) allDone[k]='done';
+  evts.push({arr:[...a],colors:allDone,info:'정렬 완료! [1, 3, 4, 5, 8]',swaps,sub:`총 교환 횟수: ${swaps}회 (버블보다 적어요!)`});
+  return evts;
+}
+
+const BEVTS=buildBubbleEvents(INIT);
+const SEVTS=buildSelectionEvents(INIT);
+let bCur=0, sCur=0, autoTimer=null;
+
+function applyEvt(evts, cur, arrId, infoId, subId, swapId){
+  const maxIdx=Math.min(cur, evts.length-1);
+  const e=evts[maxIdx];
+  renderBars(arrId, e.arr, e.colors, e.marks||{});
+  document.getElementById(infoId).innerHTML=`<strong>${e.info}</strong>`;
+  document.getElementById(subId).textContent=e.sub||'';
+  document.getElementById(swapId).textContent=`교환 ${e.swaps}회`;
+}
+
+function stepBoth(){
+  if(bCur>=BEVTS.length-1 && sCur>=SEVTS.length-1){
+    if(autoTimer){clearInterval(autoTimer);autoTimer=null;document.getElementById('play-icon').className='ti ti-player-play';}
+    return;
+  }
+  if(bCur<BEVTS.length-1) bCur++;
+  if(sCur<SEVTS.length-1) sCur++;
+  applyEvt(BEVTS,bCur,'b-arr','b-info','b-sub','b-swap-cnt');
+  applyEvt(SEVTS,sCur,'s-arr','s-info','s-sub','s-swap-cnt');
+  const total=Math.max(BEVTS.length,SEVTS.length)-1;
+  document.getElementById('step-counter').textContent=`${Math.max(bCur,sCur)} / ${total} 단계`;
+}
+
+function resetBoth(){
+  if(autoTimer){clearInterval(autoTimer);autoTimer=null;document.getElementById('play-icon').className='ti ti-player-play';}
+  bCur=0;sCur=0;
+  applyEvt(BEVTS,0,'b-arr','b-info','b-sub','b-swap-cnt');
+  applyEvt(SEVTS,0,'s-arr','s-info','s-sub','s-swap-cnt');
+  document.getElementById('step-counter').textContent='';
+}
+
+function togglePlay(){
+  if(autoTimer){clearInterval(autoTimer);autoTimer=null;document.getElementById('play-icon').className='ti ti-player-play';}
+  else{document.getElementById('play-icon').className='ti ti-player-pause';
+    autoTimer=setInterval(()=>{
+      if(bCur>=BEVTS.length-1&&sCur>=SEVTS.length-1){clearInterval(autoTimer);autoTimer=null;document.getElementById('play-icon').className='ti ti-player-play';return;}
+      stepBoth();
+    },900);
+  }
+}
+
+resetBoth();
+
+new Chart(document.getElementById('swapChart'),{
+  type:'bar',
+  data:{
+    labels:['1패스','2패스','3패스','4패스','합계'],
+    datasets:[
+      {label:'버블 정렬',data:[4,1,1,0,6],backgroundColor:'#E24B4A',borderRadius:4,borderSkipped:false},
+      {label:'선택 정렬',data:[1,1,1,1,4],backgroundColor:'#1D9E75',borderRadius:4,borderSkipped:false},
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label}: ${ctx.parsed.y}회`}}},
+    scales:{
+      x:{grid:{display:false},ticks:{font:{size:12}}},
+      y:{beginAtZero:true,max:7,ticks:{stepSize:1,font:{size:12}},grid:{color:'rgba(128,128,128,0.1)'}},
+    }
+  }
+});
+</script>
